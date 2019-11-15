@@ -21,9 +21,33 @@
 #include <iostream>
 
 
-class graphics {
 
-};
+// Program initialization NOT OpenGL/GLUT dependent,
+// as we haven't created a GLUT window yet
+void init();
+
+// Initialize OpenGL Graphics
+void InitGL();
+
+// Callback functions for GLUT
+
+// Draw the window - this is where all the GL actions are
+void display();
+
+// Trap and process alphanumeric keyboard events
+void kbd(unsigned char key, int x, int y);
+
+// Trap and process special keyboard events
+void kbdS(int key, int x, int y);
+
+// Handle "mouse cursor moved" events
+void cursor(int x, int y);
+
+// Calls itself after a specified time
+void timer(int dummy);
+
+// Handle mouse button pressed and released events
+void mouse(int button, int state, int x, int y);
 
 
 #endif //FINALPROJECTMAJOR_GF_JN_GRAPHICS_H
