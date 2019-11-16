@@ -136,6 +136,12 @@ public:
     * Populates validMoves vector with any indicies that the piece can move to.
     */
     virtual void findValidMoves();
+
+    /**
+     * Draw is a virtual method that needs to be implemented in child classes
+     * draws the ChessPiece through openGL
+     */
+     virtual void draw() = 0;
 };
 
 

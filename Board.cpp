@@ -1,4 +1,17 @@
 #include "Board.h"
+#include <stdlib.h>
+#ifdef _WIN32
+#include <windows.h>
+#else
+#include <sys/time.h>
+#endif
+
+#ifdef __APPLE__
+#include <GLUT/glut.h>
+#else
+#include <GL/glut.h>
+#endif
+#include <iostream>
 
 Board::Board() {
     resetBoard();
@@ -162,4 +175,42 @@ std::string Board::toString() {
         }
     }
     return outString;
+}
+
+void Board::draw() {
+    glColor3f(1.0f,1.0f,1.0f);
+    glRecti(0,0,800,800);
+    glColor3f(0.0, 0.0, 0.0);
+    glRecti(0,0,100,100);
+    glRecti(200,0,300,100);
+    glRecti(400,0,500,100);
+    glRecti(600,0,700,100);
+    glRecti(100,100,200,200);
+    glRecti(300,100,400,200);
+    glRecti(500,100,600,200);
+    glRecti(700,100,800,200);
+    glRecti(0,200,100,300);
+    glRecti(200,200,300,300);
+    glRecti(400,200,500,300);
+    glRecti(600,200,700,300);
+    glRecti(100,300,200,400);
+    glRecti(300,300,400,400);
+    glRecti(500,300,600,400);
+    glRecti(700,300,800,400);
+    glRecti(0,400,100,500);
+    glRecti(200,400,300,500);
+    glRecti(400,400,500,500);
+    glRecti(600,400,700,500);
+    glRecti(100,500,200,600);
+    glRecti(300,500,400,600);
+    glRecti(500,500,600,600);
+    glRecti(700,500,800,600);
+    glRecti(0,600,100,700);
+    glRecti(200,600,300,700);
+    glRecti(400,600,500,700);
+    glRecti(600,600,700,700);
+    glRecti(100,700,200,800);
+    glRecti(300,700,400,800);
+    glRecti(500,700,600,800);
+    glRecti(700,700,800,800);
 }

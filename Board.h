@@ -80,6 +80,11 @@ public:
      * @return string of board
      */
     std::string toString();
+
+    /**
+     * Draws the squares of a chess board
+     */
+     void draw();
 };
 
 
