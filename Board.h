@@ -2,12 +2,12 @@
 #define FINALPROJECTMAJOR_GF_JN_BOARD_H
 
 #include "ChessPiece.h"
-#include "Pieces/King.h"
-#include "Pieces/Queen.h"
-#include "Pieces/Bishop.h"
-#include "Pieces/Rook.h"
-#include "Pieces/Knight.h"
-#include "Pieces/Pawn.h"
+#include "pieces/King.h"
+#include "pieces/Queen.h"
+#include "pieces/Bishop.h"
+#include "pieces/Rook.h"
+#include "pieces/Knight.h"
+#include "pieces/Pawn.h"
 #include <vector>
 #include <string>
 #include <optional>
