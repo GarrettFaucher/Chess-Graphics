@@ -1,9 +1,15 @@
-cmake_minimum_required(VERSION 3.15)
+FIND_PACKAGE(OpenGL)
+
+cmake_minimum_required(VERSION 3.10)
 project(FinalProjectMajor_GF_JN)
 
-set(CMAKE_CXX_STANDARD 17)
+add_executable(Graphics_Based ChessPiece.cpp ChessPiece.h Board.cpp Board.h graphics.cpp graphics.h
+        pieces/King.cpp pieces/King.h pieces/Queen.cpp pieces/Queen.h pieces/Bishop.cpp pieces/Bishop.h
+        pieces/Rook.cpp pieces/Rook.h pieces/Knight.cpp pieces/Knight.h pieces/Pawn.cpp pieces/Pawn.h)
+find_package(OpenGL REQUIRED COMPONENTS OpenGL)
+find_package(GLUT REQUIRED)
 
-add_executable(Main main.cpp ChessPiece.cpp ChessPiece.h Board.cpp Board.h
-        pieces/King.cpp pieces/King.h pieces/Queen.cpp pieces/Queen.h pieces/Bishop.cpp pieces/Bishop.h pieces/Rook.cpp pieces/Rook.h pieces/Knight.cpp pieces/Knight.h pieces/Pawn.cpp pieces/Pawn.h graphics.cpp graphics.h)
-add_executable(Testing testing.cpp ChessPiece.cpp ChessPiece.h Board.cpp Board.h
-        pieces/King.cpp pieces/King.h pieces/Queen.cpp pieces/Queen.h pieces/Bishop.cpp pieces/Bishop.h pieces/Rook.cpp pieces/Rook.h pieces/Knight.cpp pieces/Knight.h pieces/Pawn.cpp pieces/Pawn.h)
+add_dependencies(Graphics_Based OpenGL::OpenGL)
+include_directories(${GLUT_INCLUDE_DIRS} )
+target_link_libraries(Graphics_Based OpenGL::OpenGL ${GLUT_LIBRARY} ${OPENGL_gl_LIBRARY})
+
