@@ -8,9 +8,11 @@ endif (APPLE)
 cmake_minimum_required(VERSION 3.10)
 project(FinalProjectMajor_GF_JN)
 
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14 -Wno-deprecated -Werror=return-type")
+
 add_executable(Graphics_Based ChessPiece.cpp ChessPiece.h Board.cpp Board.h graphics.cpp graphics.h
         pieces/King.cpp pieces/King.h pieces/Queen.cpp pieces/Queen.h pieces/Bishop.cpp pieces/Bishop.h
-        pieces/Rook.cpp pieces/Rook.h pieces/Knight.cpp pieces/Knight.h pieces/Pawn.cpp pieces/Pawn.h)
+        pieces/Rook.cpp pieces/Rook.h pieces/Knight.cpp pieces/Knight.h pieces/Pawn.cpp pieces/Pawn.h Button.cpp Button.h Quad.cpp Quad.h)
 
 if (APPLE)
     include_directories(${OPENGL_INCLUDE_DIR}  ${GLUT_INCLUDE_DIRS})

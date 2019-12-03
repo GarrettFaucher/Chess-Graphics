@@ -3,16 +3,21 @@
 //
 
 #include "graphics.h"
+#include "Board.h"
+#include "Button.h"
 #include <time.h>
 using namespace std;
-
 GLdouble width, height;
 int wd;
+Board board;
+screen phase;
+Button startBtn({0,0,0},{400,500},100,50,"START");
 
 void init() {
     width = 1000;
     height = 1000;
     srand(time(0));
+    phase = start;
 }
 
 /* Initialize OpenGL Graphics */
@@ -36,6 +41,24 @@ void display() {
     glClear(GL_COLOR_BUFFER_BIT);   // Clear the color buffer with current clearing color
 
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+
+    if(phase == start){
+        string label = "Virtual Chess Game";
+        glRasterPos2i(300,300);
+        for( const char &letter : label) {
+            glutBitmapCharacter(GLUT_BITMAP_8_BY_13, letter);
+        }
+        startBtn.draw();
+        glFlush();
+    }
+    if(phase == game){
+
+        glFlush();
+    }
+    if(phase == ending){
+
+        glFlush();
+    }
 
     glFlush();  // Render now
 }
@@ -71,6 +94,12 @@ void kbdS(int key, int x, int y) {
 }
 
 void cursor(int x, int y) {
+    if(startBtn.isOverlapping(x,y)){
+        startBtn.hover();
+    }
+    else{
+        startBtn.release();
+    }
 
     glutPostRedisplay();
 }
@@ -78,6 +107,18 @@ void cursor(int x, int y) {
 // button will be GLUT_LEFT_BUTTON or GLUT_RIGHT_BUTTON
 // state will be GLUT_UP or GLUT_DOWN
 void mouse(int button, int state, int x, int y) {
+    if(button == GLUT_LEFT_BUTTON && state == GLUT_DOWN && startBtn.isOverlapping(x,y)){
+        startBtn.pressDown();
+    }
+    else{
+        startBtn.release();
+    }
+    // TODO: If the left button is up and the cursor is overlapping with the Button, call spawnConfetti.
+    if(button == GLUT_LEFT_BUTTON && state == GLUT_UP && startBtn.isOverlapping(x,y)){
+        phase = game;
+    }
+
+    glutPostRedisplay();
 
 
     glutPostRedisplay();
