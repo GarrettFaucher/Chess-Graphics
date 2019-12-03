@@ -1,5 +1,7 @@
 #include "Board.h"
 #include <stdlib.h>
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
 #ifdef _WIN32
 #include <windows.h>
 #else
@@ -214,3 +216,4 @@ void Board::draw() {
     glRecti(500,700,600,800);
     glRecti(700,700,800,800);
 }
+#pragma clang diagnostic pop
