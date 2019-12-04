@@ -158,6 +158,34 @@ void Board::movePieceToOption(ChessPiece* piece, int choice) {
     setPiece(piece);
 }
 
+std::vector<int> Board::cleanValidMoves(int x, int y, faction team) {
+    std::vector<int> validMoves = getPiece(x, y, team)->getValidMoves();
+    std::vector<int> cleanMoves;
+    std::vector<int> teamPositions;
+
+    // Get a vector of team locations for each team
+    for(int i = 0; i > 64; i++) {
+        if (team == WHITE) {
+            if (whiteBoard[i] != nullptr)
+                teamPositions[i] = whiteBoard[i]->getBoardIndex();
+        } else {
+            if (blackBoard[i] != nullptr)
+                teamPositions[i] = blackBoard[i]->getBoardIndex();
+        }
+    }
+
+    for(int i = 0; validMoves.size() > i; i++) {
+        bool valid = true;
+        for (int j = 0; teamPositions.size() > j && valid; j++) {
+            if (validMoves[i] == teamPositions[j]) {
+                valid = false;
+            }
+        }
+        if (valid) { cleanMoves.push_back(validMoves[i]); }
+    }
+    return cleanMoves;
+}
+
 std::string Board::toString() {
     int line = 0;
     std::string outString;

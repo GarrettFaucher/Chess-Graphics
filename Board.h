@@ -76,6 +76,17 @@ public:
     void movePieceToOption(ChessPiece* piece, int choice);
 
     /**
+     * CleanValidMoves takes the coordinates and faction of a team and returns
+     * a vector of moves that a piece can move to by its ruleset and takes away the
+     * indices where an allied piece stands.
+     * @param x
+     * @param y
+     * @param team
+     * @return vector of board indicies where validMove for piece and not on allied team space
+     */
+    std::vector<int> cleanValidMoves(int x, int y, faction team);
+
+    /**
      * Returns a string of the board for printing purposes
      * @return string of board
      */
