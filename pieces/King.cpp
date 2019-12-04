@@ -25,11 +25,16 @@ void King::setInCheck(bool inCheck){
 }
 
 bool King::validMove(int boardIndex) {
-    int x = boardIndex % 8;
-    int y = boardIndex - x;
-    // TODO: Specify movement logic for valid moves, don't allow to move to space with ally
-    // This is out of the scope of this project.
-    if (1) {
+    int x = indexToX(boardIndex);
+    int y = indexToY(boardIndex);
+    if ((x == this->x-1 && y == this->y) ||
+        (x == this->x+1 && y == this->y) ||
+        (x == this->x && y == this->y-1) ||
+        (x == this->x && y == this->y+1) ||
+        (x == this->x-1 && y == this->y-1) ||
+        (x == this->x+1 && y == this->y+1) ||
+        (x == this->x-1 && y == this->y+1) ||
+        (x == this->x+1 && y == this->y-1)) {
         return true;
     }
     return false;
