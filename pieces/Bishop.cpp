@@ -19,8 +19,8 @@ Bishop::Bishop(faction team, bool alive, int x, int y){
 
 
 bool Bishop::validMove(int boardIndex) {
-    int x = boardIndex % 8;
-    int y = boardIndex - x;
+    int x = indexToX(boardIndex);
+    int y = indexToY(boardIndex);
     // TODO: Specify movement logic for valid moves, don't allow to move to space with ally
     // This is out of the scope of this project.
     if (1) {
