@@ -3,7 +3,7 @@ if (APPLE)
     find_package(GLUT REQUIRED)
 else ()
     FIND_PACKAGE(OpenGL)
-endif (APPLE)
+endif ()
 
 cmake_minimum_required(VERSION 3.10)
 project(FinalProjectMajor_GF_JN)

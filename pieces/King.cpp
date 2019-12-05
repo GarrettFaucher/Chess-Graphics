@@ -39,3 +39,20 @@ bool King::validMove(int boardIndex) {
     }
     return false;
 }
+
+void King::draw() {
+    Quad r = Quad({.8,.5,.6},{(getX()*100)+50, (getY()*100)+50}, 50, 50);
+    r.draw();
+    if(team == BLACK){
+        glColor3f(0,0,0);
+    }
+    else{
+        glColor3f(1,1,1);
+    }
+    std::string label = "King";
+    glRasterPos2i(getX()*100 + 35 ,getY()*100 +50);
+    for (const char &letter : label) {
+        glutBitmapCharacter(GLUT_BITMAP_8_BY_13, letter);
+    }
+
+}

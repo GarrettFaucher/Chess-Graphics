@@ -3,6 +3,21 @@
 
 #include <vector>
 #include <string>
+#include "Quad.h"
+#include <iostream>
+#include <stdlib.h>
+#ifdef _WIN32
+#include <windows.h>
+#else
+#include <sys/time.h>
+#endif
+
+#ifdef __APPLE__
+#include <GLUT/glut.h>
+#else
+#include <GL/glut.h>
+#endif
+#include <iostream>
 
 enum pieceType {PAWN, KING, KNIGHT, BISHOP, ROOK, QUEEN};
 enum faction {BLACK, WHITE};
@@ -141,7 +156,7 @@ public:
      * Draw is a virtual method that needs to be implemented in child classes
      * draws the ChessPiece through openGL
      */
-     virtual void draw() = 0;
+    virtual void draw() = 0;
 };
 
 

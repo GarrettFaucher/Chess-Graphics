@@ -14,6 +14,8 @@ public:
      * Overidden method to see if move is valid.
      */
     bool validMove(int boardIndex) override;
+    
+    void draw() override;
 };
 
 #endif //FINALPROJECTMAJOR_GF_JN_ROOK_H

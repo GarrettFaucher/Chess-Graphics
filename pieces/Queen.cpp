@@ -33,3 +33,20 @@ bool Queen::validMove(int boardIndex) {
     }
     return false;
 }
+
+void Queen::draw() {
+    Quad r = Quad({.5,0,.8},{(getX()*100)+50, (getY()*100)+50}, 50, 50);
+    r.draw();
+    if(team == BLACK){
+        glColor3f(0,0,0);
+    }
+    else{
+        glColor3f(1,1,1);
+    }
+    std::string label = "Queen";
+    glRasterPos2i(getX()*100 + 30 ,getY()*100 +50);
+    for (const char &letter : label) {
+        glutBitmapCharacter(GLUT_BITMAP_8_BY_13, letter);
+    }
+
+}

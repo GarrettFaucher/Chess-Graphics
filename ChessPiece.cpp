@@ -1,5 +1,4 @@
 #include "ChessPiece.h"
-#include <iostream>
 
 ChessPiece::ChessPiece(){
     type = PAWN;

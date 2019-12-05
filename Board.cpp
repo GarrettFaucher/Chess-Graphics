@@ -1,19 +1,4 @@
 #include "Board.h"
-#include <stdlib.h>
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-#ifdef _WIN32
-#include <windows.h>
-#else
-#include <sys/time.h>
-#endif
-
-#ifdef __APPLE__
-#include <GLUT/glut.h>
-#else
-#include <GL/glut.h>
-#endif
-#include <iostream>
 
 Board::Board() {
     resetBoard();
@@ -243,5 +228,17 @@ void Board::draw() {
     glRecti(300,700,400,800);
     glRecti(500,700,600,800);
     glRecti(700,700,800,800);
+
+    for(ChessPiece *p : whiteBoard) {
+        if(p != nullptr){
+           p->draw();
+        }
+    }
+
+    for(ChessPiece *p : blackBoard) {
+        if(p != nullptr){
+            p->draw();
+        }
+    }
+
 }
-#pragma clang diagnostic pop

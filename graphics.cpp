@@ -16,8 +16,8 @@ screen phase;
 Button startBtn({0.8,0.8,1.0},{400,500},100,50,"START");
 
 void init() {
-    width = 1000;
-    height = 1000;
+    width = 800;
+    height = 800;
     srand(time(0));
     phase = start;
 }
@@ -133,7 +133,7 @@ void timer(int dummy) {
 
 /* Main function: GLUT runs as a console application starting at main()  */
 int main(int argc, char** argv) {
-
+    board.fileToBoard("../boards/default.csv"); // "../boards/default.csv"
     init();
 
     glutInit(&argc, argv);          // Initialize GLUT
