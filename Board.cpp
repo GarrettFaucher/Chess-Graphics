@@ -89,31 +89,31 @@ void Board::fileToBoard(std::string filename) {
         if (fileContents[i] != "") {
             if (fileContents[i].at(0) == 'W') {
                 if (fileContents[i] == "WP") {
-                    setPiece(new Pawn(WHITE, true, i / 8, i % 8));
+                    setPiece(new Pawn(WHITE, true, i % 8, i / 8));
                 } else if (fileContents[i] == "WB") {
-                    setPiece(new Bishop(WHITE, true, i / 8, i % 8));
+                    setPiece(new Bishop(WHITE, true, i % 8, i / 8));
                 } else if (fileContents[i] == "WKG") {
-                    setPiece(new King(WHITE, true, i / 8, i % 8));
+                    setPiece(new King(WHITE, true, i % 8, i / 8));
                 } else if (fileContents[i] == "WKN") {
-                    setPiece(new Knight(WHITE, true, i / 8, i % 8));
+                    setPiece(new Knight(WHITE, true, i % 8, i / 8));
                 } else if (fileContents[i] == "WQ") {
-                    setPiece(new Queen(WHITE, true, i / 8, i % 8));
+                    setPiece(new Queen(WHITE, true, i % 8, i / 8));
                 } else if (fileContents[i] == "WR") {
-                    setPiece(new Rook(WHITE, true, i / 8, i % 8));
+                    setPiece(new Rook(WHITE, true, i % 8, i / 8));
                 }
             } else {
                 if (fileContents[i] == "BP") {
-                    setPiece(new Pawn(BLACK, true, i / 8, i % 8));
+                    setPiece(new Pawn(BLACK, true, i % 8, i / 8));
                 } else if (fileContents[i] == "BB") {
-                    setPiece(new Bishop(BLACK, true, i / 8, i % 8));
+                    setPiece(new Bishop(BLACK, true, i % 8, i / 8));
                 } else if (fileContents[i] == "BKG") {
-                    setPiece(new King(BLACK, true, i / 8, i % 8));
+                    setPiece(new King(BLACK, true, i % 8, i / 8));
                 } else if (fileContents[i] == "BKN") {
-                    setPiece(new Knight(BLACK, true, i / 8, i % 8));
+                    setPiece(new Knight(BLACK, true, i % 8, i / 8));
                 } else if (fileContents[i] == "BQ") {
-                    setPiece(new Queen(BLACK, true, i / 8, i % 8));
+                    setPiece(new Queen(BLACK, true, i % 8, i / 8));
                 } else if (fileContents[i] == "BR") {
-                    setPiece(new Rook(BLACK, true, i / 8, i % 8));
+                    setPiece(new Rook(BLACK, true, i % 8, i / 8));
                 }
             }
         }
