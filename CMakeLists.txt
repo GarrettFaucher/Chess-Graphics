@@ -1,5 +1,5 @@
 if (APPLE)
-    FIND_PACKAGE(OpenGL)
+    FIND_PACKAGE(OpenGL REQUIRED)
     find_package(GLUT REQUIRED)
 else ()
     FIND_PACKAGE(OpenGL)

@@ -6,12 +6,14 @@
 #include "Board.h"
 #include "Button.h"
 #include <time.h>
+#include <vector>
+#include <iostream>
 using namespace std;
 GLdouble width, height;
 int wd;
 Board board;
 screen phase;
-Button startBtn({0,0,0},{400,500},100,50,"START");
+Button startBtn({0.8,0.8,1.0},{400,500},100,50,"START");
 
 void init() {
     width = 1000;
@@ -44,15 +46,16 @@ void display() {
 
     if(phase == start){
         string label = "Virtual Chess Game";
-        glRasterPos2i(300,300);
-        for( const char &letter : label) {
+        glColor3f(1, 1, 1);
+        glRasterPos2i(410,300);
+        for(const char &letter : label) {
             glutBitmapCharacter(GLUT_BITMAP_8_BY_13, letter);
         }
         startBtn.draw();
         glFlush();
     }
     if(phase == game){
-
+        board.draw();
         glFlush();
     }
     if(phase == ending){
@@ -113,15 +116,13 @@ void mouse(int button, int state, int x, int y) {
     else{
         startBtn.release();
     }
-    // TODO: If the left button is up and the cursor is overlapping with the Button, call spawnConfetti.
+    // If the left button is up and the cursor is overlapping with the Button, start the game.
     if(button == GLUT_LEFT_BUTTON && state == GLUT_UP && startBtn.isOverlapping(x,y)){
         phase = game;
     }
 
     glutPostRedisplay();
 
-
-    glutPostRedisplay();
 }
 
 void timer(int dummy) {
