@@ -35,7 +35,7 @@ bool Pawn::validMove(int boardIndex) {
 }
 
 void Pawn::draw() {
-    Quad r = Quad({0,.6,.8},{(getX()*100)+50, (getY()*100)+50}, 50, 50);
+    Quad r = Quad({0,.6,.8},{(getX()*100)+50,(getY()*100)+50}, 50, 50);
     r.draw();
     if(team == BLACK){
         glColor3f(0,0,0);

@@ -121,6 +121,10 @@ void mouse(int button, int state, int x, int y) {
         phase = game;
     }
 
+    if(button == GLUT_LEFT_BUTTON && state == GLUT_DOWN){
+        board.click(x,y);
+    }
+
     glutPostRedisplay();
 
 }

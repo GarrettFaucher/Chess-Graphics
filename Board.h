@@ -8,6 +8,7 @@
 #include "pieces/Rook.h"
 #include "pieces/Knight.h"
 #include "pieces/Pawn.h"
+#include "Button.h"
 #include <vector>
 #include <string>
 #include <optional>
@@ -20,6 +21,7 @@ class Board {
 private:
     std::vector<ChessPiece*> whiteBoard;
     std::vector<ChessPiece*> blackBoard;
+    std:: vector<Button> squares;
     bool whiteTurn = true;
 public:
     Board();
@@ -34,6 +36,7 @@ public:
      * @return true if it is white teams turn
      */
     bool getWhiteTurn() const;
+
 
     /**
      * Sets turn status
@@ -96,6 +99,9 @@ public:
      * Draws the squares of a chess board
      */
      void draw();
+
+     void click(int x, int y);
+
 };
 
 

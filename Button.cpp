@@ -10,7 +10,7 @@ Button::Button(color fill, point center, unsigned int width, unsigned int height
     this->label = label;
     originalFill = fill;
     hoverFill = {fill.red + 0.5, fill.green + 0.5, fill.blue + 0.5};
-    pressFill = {fill.red - 0.5, fill.green - 0.5, fill.blue - 0.5};
+    pressFill = {fill.red - 0.4, fill.green - 0.4, fill.blue - 0.4};
 }
 
 void Button::draw() const {

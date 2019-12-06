@@ -2,6 +2,17 @@
 
 Board::Board() {
     resetBoard();
+    for(int y = 50; y<=750; y+=100){
+        for(int x = 50; x<=750; x+=100) {
+            if((((x-50)/100)+(y-50)/100) % 2 == 0) {
+                squares.push_back((Button({.7373, .6196,.4863}, {x, y}, 100, 100, "")));
+            }
+            else{
+                squares.push_back(Button({.4, .314, .239}, {x, y}, 100, 100, ""));
+            }
+        }
+    }
+
 }
 
 ChessPiece* Board::getPiece(int x, int y, faction team) {
@@ -17,6 +28,7 @@ ChessPiece* Board::getPiece(int x, int y, faction team) {
 bool Board::getWhiteTurn() const {
     return whiteTurn;
 }
+
 
 void Board::setWhiteTurn(bool whiteTurn) {
     this->whiteTurn = whiteTurn;
@@ -45,11 +57,11 @@ void Board::setPiece(ChessPiece* piece) {
 
 void Board::checkCollisions() {
     for (int i = 0; 64 > i; i++) {
-        if (whiteBoard[i] != NULL && blackBoard[i] != NULL) {
+        if (whiteBoard[i] != nullptr && blackBoard[i] != nullptr) {
             if (whiteTurn) {
-                blackBoard[i] = NULL;
+                blackBoard[i] = nullptr;
             } else {
-                whiteBoard[i] = NULL;
+                whiteBoard[i] = nullptr;
             }
         }
     }
@@ -193,41 +205,9 @@ std::string Board::toString() {
 }
 
 void Board::draw() {
-    glColor3f(1.0f,1.0f,1.0f);
-    glRecti(0,0,800,800);
-    glColor3f(0.0, 0.0, 0.0);
-    glRecti(0,0,100,100);
-    glRecti(200,0,300,100);
-    glRecti(400,0,500,100);
-    glRecti(600,0,700,100);
-    glRecti(100,100,200,200);
-    glRecti(300,100,400,200);
-    glRecti(500,100,600,200);
-    glRecti(700,100,800,200);
-    glRecti(0,200,100,300);
-    glRecti(200,200,300,300);
-    glRecti(400,200,500,300);
-    glRecti(600,200,700,300);
-    glRecti(100,300,200,400);
-    glRecti(300,300,400,400);
-    glRecti(500,300,600,400);
-    glRecti(700,300,800,400);
-    glRecti(0,400,100,500);
-    glRecti(200,400,300,500);
-    glRecti(400,400,500,500);
-    glRecti(600,400,700,500);
-    glRecti(100,500,200,600);
-    glRecti(300,500,400,600);
-    glRecti(500,500,600,600);
-    glRecti(700,500,800,600);
-    glRecti(0,600,100,700);
-    glRecti(200,600,300,700);
-    glRecti(400,600,500,700);
-    glRecti(600,600,700,700);
-    glRecti(100,700,200,800);
-    glRecti(300,700,400,800);
-    glRecti(500,700,600,800);
-    glRecti(700,700,800,800);
+    for(Button b : squares){
+        b.draw();
+    }
 
     for(ChessPiece *p : whiteBoard) {
         if(p != nullptr){
@@ -240,5 +220,23 @@ void Board::draw() {
             p->draw();
         }
     }
-
 }
+
+void Board::click(int x, int y){
+    if(whiteBoard[(x/100)*8 + (y/100)] != nullptr && getWhiteTurn()) { // button clicked on
+        squares[(y/100)*8 + (x/100)].pressDown();
+        for(int i : cleanValidMoves(x/100,y/100, WHITE)){
+            squares[i].pressDown();
+        }
+    }
+    else if( blackBoard[(x/100)*8 + (y/100)] != nullptr && !getWhiteTurn()){
+        squares[(y/100)*8 + (x/100)].pressDown();
+        for(int i : cleanValidMoves(x/100,y/100, BLACK)){
+            squares[i].pressDown();
+        }
+    }
+}
+
+
+
+
