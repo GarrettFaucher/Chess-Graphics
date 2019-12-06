@@ -108,8 +108,8 @@ void ChessPiece::movePiece(int x, int y) {
 }
 
 void ChessPiece::moveToValidMove(int index) {
-    int x = indexToX(index);
-    int y = indexToY(index);
+    x = indexToX(index);
+    y = indexToY(index);
 }
 
 int ChessPiece::getBoardIndex() {

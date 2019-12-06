@@ -9,6 +9,7 @@
 #include "Quad.h"
 #include <string>
 #include <functional>
+#include <math.h>
 
 class Button : public Quad {
 private:
@@ -31,6 +32,8 @@ public:
 
     /* Change the color back when the user is not clicking/hovering */
     void release();
+
+    void choice();
 };
 
 #endif //FINALPROJECTMAJOR_GF_JN_BUTTON_H

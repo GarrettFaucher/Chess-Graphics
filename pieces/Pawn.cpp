@@ -21,13 +21,13 @@ bool Pawn::validMove(int boardIndex) {
     int x = indexToX(boardIndex);
     int y = indexToY(boardIndex);
     if (WHITE == team) {
-        if ((x == this->x-1 && y == this->y) ||
-            (x == this->x-2 && y == this->y)) {
+        if ((x == this->x && y == this->y-1) ||
+            (x == this->x && y == this->y-2)) {
             return true;
         }
     } else {
-        if ((x == this->x+1 && y == this->y) ||
-            (x == this->x+2 && y == this->y)) {
+        if ((x == this->x && y == this->y+1) ||
+            (x == this->x && y == this->y+2)) {
             return true;
         }
     }

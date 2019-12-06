@@ -10,7 +10,7 @@ Button::Button(color fill, point center, unsigned int width, unsigned int height
     this->label = label;
     originalFill = fill;
     hoverFill = {fill.red + 0.5, fill.green + 0.5, fill.blue + 0.5};
-    pressFill = {fill.red - 0.4, fill.green - 0.4, fill.blue - 0.4};
+    pressFill = {fill.red - 0.3, fill.green - 0.3, fill.blue - 0.3};
 }
 
 void Button::draw() const {
@@ -45,3 +45,21 @@ void Button::pressDown() {
 void Button::release() {
     setColor(originalFill);
 }
+
+void Button::choice() {
+    int numTriangles = 20; //# of triangles used to draw circle
+
+    GLfloat twoPi = 2.0f * M_PI;
+
+    glBegin(GL_TRIANGLE_FAN);
+    glColor3f(fill.red - 0.2, fill.green - 0.2, fill.blue - 0.2);
+    glVertex2f(center.x, center.y); // center of circle
+    for(int i = 0; i <= numTriangles;i++) {
+        glVertex2f(
+                float(center.x) + (20 * cosf(float(i) *  twoPi / float(numTriangles))),
+                float(center.y) + (20 * sinf(float(i) * twoPi / float(numTriangles)))
+        );
+    }
+    glEnd();
+}
+
