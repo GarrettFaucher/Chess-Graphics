@@ -35,7 +35,6 @@ std::vector<int> ChessPiece::getValidMoves() const {
     return validMoves;
 }
 
-
 void ChessPiece::setType(pieceType type){
     this->type = type;
 }
@@ -88,8 +87,8 @@ std::string ChessPiece::toStringBoardInfo() const {
 std::string ChessPiece::toStringValidMoves() const {
     std::string outputString = "";
     for(int i = 0; validMoves.size() > i; i++) {
-        int x = validMoves[i] / 8;
-        int y = validMoves[i] % 8;
+        int x = validMoves[i] % 8;
+        int y = validMoves[i] / 8;
         outputString += std::to_string(i + 1);
         outputString += ". (";
         outputString += std::to_string(x);
@@ -114,15 +113,15 @@ void ChessPiece::moveToValidMove(int index) {
 }
 
 int ChessPiece::getBoardIndex() {
-    return this->getX() * 8 + this->getY();
+    return this->getX() + (this->getY() * 8);
 }
 
 int ChessPiece::indexToX(int index) const{
-    return index / 8;
+    return index % 8;
 }
 
 int ChessPiece::indexToY(int index) const{
-    return index % 8;
+    return index / 8;
 }
 
 void ChessPiece::findValidMoves() {

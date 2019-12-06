@@ -17,10 +17,10 @@ Board::Board() {
 
 ChessPiece* Board::getPiece(int x, int y, faction team) {
     if (team == WHITE) {
-        int index = (x * 8) + y;
+        int index = (y * 8) + x;
         return whiteBoard[index];
     } else {
-        int index = (x * 8) + y;
+        int index = (y * 8) + x;
         return blackBoard[index];
     }
 }
@@ -47,10 +47,10 @@ void Board::resetBoard() {
 
 void Board::setPiece(ChessPiece* piece) {
     if(piece->getTeam() == WHITE) {
-        int setIndex = (piece->getX() * 8) + piece->getY();
+        int setIndex = (piece->getY() * 8) + piece->getX();
         whiteBoard[setIndex] = piece;
     } else {
-        int setIndex = (piece->getX() * 8) + piece->getY();
+        int setIndex = (piece->getY() * 8) + piece->getX();
         blackBoard[setIndex] = piece;
     }
 }
@@ -135,10 +135,10 @@ void Board::fileToBoard(std::string filename) {
 
 void Board::popPiece(int x, int y, faction team) {
     if (team == WHITE) {
-        int setIndex = (x * 8) + y;
+        int setIndex = (y * 8) + x;
         whiteBoard[setIndex] = nullptr;
     } else {
-        int setIndex = (x * 8) + y;
+        int setIndex = (y * 8) + x;
         blackBoard[setIndex] = nullptr;
     }
 }
@@ -147,8 +147,8 @@ void Board::movePieceToOption(ChessPiece* piece, int choice) {
     std::vector<int> pieceOptions = piece->getValidMoves();
     int indexToMoveTo = pieceOptions[choice-1];
     faction team = piece->getTeam();
-    int x = indexToMoveTo / 8;
-    int y = indexToMoveTo % 8;
+    int x = indexToMoveTo % 8;
+    int y = indexToMoveTo / 8;
     popPiece(x, y, team);
     piece->setX(x);
     piece->setY(y);
@@ -173,12 +173,14 @@ std::vector<int> Board::cleanValidMoves(int x, int y, faction team) {
 
     for(int i = 0; validMoves.size() > i; i++) {
         bool valid = true;
-        for (int j = 0; teamPositions.size() > j && valid; j++) {
+        for (int j = 0; (teamPositions.size() > j) && valid; j++) {
             if (validMoves[i] == teamPositions[j]) {
                 valid = false;
             }
         }
-        if (valid) { cleanMoves.push_back(validMoves[i]); }
+        if(valid) {
+            cleanMoves.push_back(validMoves[i]);
+        }
     }
     return cleanMoves;
 }
@@ -223,13 +225,13 @@ void Board::draw() {
 }
 
 void Board::click(int x, int y){
-    if(whiteBoard[(x/100)*8 + (y/100)] != nullptr && getWhiteTurn()) { // button clicked on
+    if(whiteBoard[(y/100)*8 + (x/100)] != nullptr && getWhiteTurn()) { // button clicked on
         squares[(y/100)*8 + (x/100)].pressDown();
         for(int i : cleanValidMoves(x/100,y/100, WHITE)){
             squares[i].pressDown();
         }
     }
-    else if( blackBoard[(x/100)*8 + (y/100)] != nullptr && !getWhiteTurn()){
+    else if( blackBoard[(y/100)*8 + (x/100)] != nullptr && !getWhiteTurn()){
         squares[(y/100)*8 + (x/100)].pressDown();
         for(int i : cleanValidMoves(x/100,y/100, BLACK)){
             squares[i].pressDown();
