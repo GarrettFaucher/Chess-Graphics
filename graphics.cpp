@@ -190,6 +190,7 @@ void mouse(int button, int state, int x, int y) {
                 if (b.isPressed() && (board.getPiece(tempX, tempY, WHITE) != nullptr) && board.getWhiteTurn()) {
                     board.getPiece(tempX, tempY, WHITE)->movePiece(x /100, y /100);
                     board.setPiece(board.getPiece(tempX, tempY, WHITE));
+                    board.getPiece(tempX, tempY, WHITE)->findValidMoves(); // Finds valid moves of piece at its new position
                     if(x/100 != tempX || y/100 != tempY) {
                         board.popPiece(tempX, tempY, WHITE);
                         board.setWhiteTurn(false);
@@ -198,6 +199,7 @@ void mouse(int button, int state, int x, int y) {
                 else if (b.isPressed() && (board.getPiece(tempX, tempY, BLACK) != nullptr) && !board.getWhiteTurn()) {
                     board.getPiece(tempX, tempY, BLACK)->movePiece(x / 100, y / 100);
                     board.setPiece(board.getPiece(tempX, tempY, BLACK));
+                    board.getPiece(tempX, tempY, BLACK)->findValidMoves(); // Finds valid moves of piece at its new position
                     if(x/100 != tempX || y/100 != tempY) {
                         board.popPiece(tempX, tempY, BLACK);
                         board.setWhiteTurn(true);
