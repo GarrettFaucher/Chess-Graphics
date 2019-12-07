@@ -28,6 +28,8 @@ public:
     /* Returns true if button is pressed down */
     bool isPressed() const;
 
+    void setPressed(bool press);
+
     /* Change color of the Button when the user is hovering over it */
     void hover();
 

@@ -125,13 +125,12 @@ void mouse(int button, int state, int x, int y) {
         if (board.getPiece((x / 100), (y / 100), WHITE) != nullptr && board.getWhiteTurn()) { // button clicked on
             board.getSquares()->at((y / 100) * 8 + (x / 100)).pressDown();
             for (int i : board.cleanValidMoves(x / 100, y / 100, WHITE)) {
-                board.getSquares()->at(i).pressDown();
-                board.getSquares()->at(i).choice();
+                board.getSquares()->at(i).setPressed(true);
             }
         } else if (board.getPiece((x / 100), (y / 100), BLACK) != nullptr && !board.getWhiteTurn()) {
             board.getSquares()->at((y / 100) * 8 + (x / 100)).pressDown();
             for (int i : board.cleanValidMoves(x / 100, y / 100, BLACK)) {
-                board.getSquares()->at(i).pressDown();
+                board.getSquares()->at(i).setPressed(true);
             }
         }
     }

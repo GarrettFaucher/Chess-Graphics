@@ -42,6 +42,10 @@ void Button::hover() {
     setColor(hoverFill);
 }
 
+void Button::setPressed(bool press) {
+    pressed = press;
+}
+
 /* Change color of the box when the user is clicking on it */
 void Button::pressDown() {
     setColor(pressFill);
@@ -55,7 +59,7 @@ void Button::release() {
 }
 
 void Button::choice() {
-    int numTriangles = 20; //# of triangles used to draw circle
+    int numTriangles = 50; //# of triangles used to draw circle
 
     GLfloat twoPi = 2.0f * M_PI;
 

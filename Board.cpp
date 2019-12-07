@@ -210,6 +210,9 @@ std::string Board::toString() {
 void Board::draw() {
     for(Button b : squares){
         b.draw();
+        if(b.isPressed()){
+            b.choice();
+        }
     }
 
     for(ChessPiece *p : whiteBoard) {
