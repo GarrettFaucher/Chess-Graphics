@@ -13,10 +13,12 @@ GLdouble width, height;
 int wd;
 Board board;
 screen phase;
-Button startBtn({0.8,0.8,1.0},{400,500},100,50,"START");
+Button startBtn({0.8,0.8,1.0},{500,500},100,50,"START");
+Button resetBtn({.3569,.2471,.3373},{900,200},100,50,"Reset Game");
+Button endGame({.8863,.8236,.8588},{900,600},100,50, "End Game");
 
 void init() {
-    width = 800;
+    width = 1000;
     height = 800;
     srand(time(0));
     phase = start;
@@ -25,7 +27,7 @@ void init() {
 /* Initialize OpenGL Graphics */
 void initGL() {
     // Set "clearing" or background color
-    glClearColor(0.0f, 0.0f, 0.0f, 1.0f); // Black and opaque
+    glClearColor(0.4f, 0.5137f, 0.4863f, 1.0f); // Black and opaque
 }
 
 /* Handler for window-repaint event. Call back when the window first appears and
@@ -47,7 +49,7 @@ void display() {
     if(phase == start){
         string label = "Virtual Chess Game";
         glColor3f(1, 1, 1);
-        glRasterPos2i(410,300);
+        glRasterPos2i(430,300);
         for(const char &letter : label) {
             glutBitmapCharacter(GLUT_BITMAP_8_BY_13, letter);
         }
@@ -56,10 +58,23 @@ void display() {
     }
     if(phase == game){
         board.draw();
+        resetBtn.draw();
+        endGame.draw();
         glFlush();
     }
     if(phase == ending){
-
+        string label = "Virtual Chess Game";
+        glColor3f(1, 1, 1);
+        glRasterPos2i(400,300);
+        for(const char &letter : label) {
+            glutBitmapCharacter(GLUT_BITMAP_8_BY_13, letter);
+        }
+        label = "Would You Like to Play Again?";
+        glColor3f(1, 1, 1);
+        glRasterPos2i(350,400);
+        for(const char &letter : label) {
+            glutBitmapCharacter(GLUT_BITMAP_8_BY_13, letter);
+        }
         glFlush();
     }
 
@@ -104,6 +119,13 @@ void cursor(int x, int y) {
         startBtn.release();
     }
 
+    if(resetBtn.isOverlapping(x,y)){
+        resetBtn.hover();
+    }
+    else{
+        resetBtn.release();
+    }
+
     glutPostRedisplay();
 }
 
@@ -119,6 +141,30 @@ void mouse(int button, int state, int x, int y) {
     // If the left button is up and the cursor is overlapping with the Button, start the game.
     if(button == GLUT_LEFT_BUTTON && state == GLUT_UP && startBtn.isOverlapping(x,y)){
         phase = game;
+    }
+
+    if(button == GLUT_LEFT_BUTTON && state == GLUT_DOWN && resetBtn.isOverlapping(x,y)){
+        resetBtn.pressDown();
+    }
+    else{
+        resetBtn.release();
+    }
+    // If the left button is up and the cursor is overlapping with the Button, start the game.
+    if(button == GLUT_LEFT_BUTTON && state == GLUT_UP && resetBtn.isOverlapping(x,y)){
+        board.resetBoard();
+        board.fileToBoard("../boards/default.csv");
+        board.setWhiteTurn(true);
+    }
+
+    if(button == GLUT_LEFT_BUTTON && state == GLUT_DOWN && endGame.isOverlapping(x,y)){
+        endGame.pressDown();
+    }
+    else{
+        endGame.release();
+    }
+    // If the left button is up and the cursor is overlapping with the Button, start the game.
+    if(button == GLUT_LEFT_BUTTON && state == GLUT_UP && endGame.isOverlapping(x,y)){
+        phase = ending;
     }
 
     if(button == GLUT_LEFT_BUTTON && state == GLUT_DOWN && phase == game) {
