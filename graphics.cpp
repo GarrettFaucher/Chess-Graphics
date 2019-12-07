@@ -144,14 +144,19 @@ void mouse(int button, int state, int x, int y) {
                 if (b.isPressed() && (board.getPiece(tempX, tempY, WHITE) != nullptr) && board.getWhiteTurn()) {
                     board.getPiece(tempX, tempY, WHITE)->movePiece(x /100, y /100);
                     board.setPiece(board.getPiece(tempX, tempY, WHITE));
-                    board.popPiece(tempX,tempY,WHITE);
-                    board.setWhiteTurn(false);
+                    if(x/100 != tempX || y/100 != tempY) {
+                        board.popPiece(tempX, tempY, WHITE);
+                        board.setWhiteTurn(false);
+                    }
                 }
                 else if (b.isPressed() && (board.getPiece(tempX, tempY, BLACK) != nullptr) && !board.getWhiteTurn()) {
                     board.getPiece(tempX, tempY, BLACK)->movePiece(x / 100, y / 100);
                     board.setPiece(board.getPiece(tempX, tempY, BLACK));
-                    board.popPiece(tempX,tempY,BLACK);
-                    board.setWhiteTurn(true);
+                    if(x/100 != tempX || y/100 != tempY) {
+                        board.popPiece(tempX, tempY, BLACK);
+                        board.setWhiteTurn(true);
+                    }
+
                 }
                 b.release();
             }
