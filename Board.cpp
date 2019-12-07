@@ -98,7 +98,7 @@ void Board::fileToBoard(std::string filename) {
     }
     // This loop will create piece objects and push them to the board based on fileContents
     for (int i = 0; fileContents.size() > i; i++) {
-        if (fileContents[i] != "") {
+        if (!fileContents[i].empty()) {
             if (fileContents[i].at(0) == 'W') {
                 if (fileContents[i] == "WP") {
                     setPiece(new Pawn(WHITE, true, i % 8, i / 8));
@@ -161,27 +161,28 @@ std::vector<int> Board::cleanValidMoves(int x, int y, faction team) {
     std::vector<int> teamPositions;
 
     // Get a vector of team locations for each team
-    for(int i = 0; i > 64; i++) {
+    for(int i = 0; i < 64; i++) {
         if (team == WHITE) {
             if (whiteBoard[i] != nullptr)
-                teamPositions[i] = whiteBoard[i]->getBoardIndex();
+                teamPositions.push_back(whiteBoard[i]->getBoardIndex());
         } else {
             if (blackBoard[i] != nullptr)
-                teamPositions[i] = blackBoard[i]->getBoardIndex();
+                teamPositions.push_back(blackBoard[i]->getBoardIndex());
         }
     }
 
-    for(int i = 0; validMoves.size() > i; i++) {
+    for(int validMove : validMoves) {
         bool valid = true;
         for (int j = 0; (teamPositions.size() > j) && valid; j++) {
-            if (validMoves[i] == teamPositions[j]) {
+            if (validMove == teamPositions[j]) {
                 valid = false;
             }
         }
         if(valid) {
-            cleanMoves.push_back(validMoves[i]);
+            cleanMoves.push_back(validMove);
         }
     }
+    teamPositions.clear();
     return cleanMoves;
 }
 
@@ -224,20 +225,10 @@ void Board::draw() {
     }
 }
 
-void Board::click(int x, int y){
-    if(whiteBoard[(y/100)*8 + (x/100)] != nullptr && getWhiteTurn()) { // button clicked on
-        squares[(y/100)*8 + (x/100)].pressDown();
-        for(int i : cleanValidMoves(x/100,y/100, WHITE)){
-            squares[i].pressDown();
-        }
-    }
-    else if( blackBoard[(y/100)*8 + (x/100)] != nullptr && !getWhiteTurn()){
-        squares[(y/100)*8 + (x/100)].pressDown();
-        for(int i : cleanValidMoves(x/100,y/100, BLACK)){
-            squares[i].pressDown();
-        }
-    }
+std::vector<Button>* Board::getSquares(){
+    return &squares;
 }
+
 
 
 

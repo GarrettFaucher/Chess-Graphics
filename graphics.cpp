@@ -121,8 +121,42 @@ void mouse(int button, int state, int x, int y) {
         phase = game;
     }
 
-    if(button == GLUT_LEFT_BUTTON && state == GLUT_DOWN && phase == game){
-        board.click(x,y);
+    if(button == GLUT_LEFT_BUTTON && state == GLUT_DOWN && phase == game) {
+        if (board.getPiece((x / 100), (y / 100), WHITE) != nullptr && board.getWhiteTurn()) { // button clicked on
+            board.getSquares()->at((y / 100) * 8 + (x / 100)).pressDown();
+            for (int i : board.cleanValidMoves(x / 100, y / 100, WHITE)) {
+                board.getSquares()->at(i).pressDown();
+                board.getSquares()->at(i).choice();
+            }
+        } else if (board.getPiece((x / 100), (y / 100), BLACK) != nullptr && !board.getWhiteTurn()) {
+            board.getSquares()->at((y / 100) * 8 + (x / 100)).pressDown();
+            for (int i : board.cleanValidMoves(x / 100, y / 100, BLACK)) {
+                board.getSquares()->at(i).pressDown();
+            }
+        }
+    }
+
+    if(button == GLUT_LEFT_BUTTON && state == GLUT_UP && phase == game){
+        int tempX, tempY;
+        if(board.getSquares()->at((y/100)*8 + (x/100)).isPressed()) {
+            for (Button &b : *board.getSquares()) {
+                tempX = b.getLeftX() / 100;
+                tempY = b.getTopY() / 100;
+                if (b.isPressed() && (board.getPiece(tempX, tempY, WHITE) != nullptr) && board.getWhiteTurn()) {
+                    board.getPiece(tempX, tempY, WHITE)->movePiece(x /100, y /100);
+                    board.setPiece(board.getPiece(tempX, tempY, WHITE));
+                    board.popPiece(tempX,tempY,WHITE);
+                    board.setWhiteTurn(false);
+                }
+                else if (b.isPressed() && (board.getPiece(tempX, tempY, BLACK) != nullptr) && !board.getWhiteTurn()) {
+                    board.getPiece(tempX, tempY, BLACK)->movePiece(x / 100, y / 100);
+                    board.setPiece(board.getPiece(tempX, tempY, BLACK));
+                    board.popPiece(tempX,tempY,BLACK);
+                    board.setWhiteTurn(true);
+                }
+                b.release();
+            }
+        }
     }
 
     glutPostRedisplay();

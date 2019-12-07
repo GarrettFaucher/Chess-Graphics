@@ -100,7 +100,7 @@ public:
      */
      void draw();
 
-     void click(int x, int y);
+     std::vector<Button>* getSquares();
 
 };
 

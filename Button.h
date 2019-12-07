@@ -15,6 +15,7 @@ class Button : public Quad {
 private:
     std::string label;
     color originalFill, hoverFill, pressFill;
+    bool pressed;
 
 public:
     Button(color fill, point center, unsigned int width, unsigned int height, std::string label);
@@ -23,6 +24,9 @@ public:
 
     /* Returns true if the coordinate is inside the box */
     bool isOverlapping(int x, int y) const;
+
+    /* Returns true if button is pressed down */
+    bool isPressed() const;
 
     /* Change color of the Button when the user is hovering over it */
     void hover();

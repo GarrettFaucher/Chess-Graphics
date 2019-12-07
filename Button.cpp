@@ -11,6 +11,7 @@ Button::Button(color fill, point center, unsigned int width, unsigned int height
     originalFill = fill;
     hoverFill = {fill.red + 0.5, fill.green + 0.5, fill.blue + 0.5};
     pressFill = {fill.red - 0.3, fill.green - 0.3, fill.blue - 0.3};
+    pressed = false;
 }
 
 void Button::draw() const {
@@ -31,6 +32,11 @@ bool Button::isOverlapping(int x, int y) const {
     return false; // Placeholder for compilation
 }
 
+/* Returns true if the button is pressed down */
+bool Button::isPressed() const {
+    return pressed;
+}
+
 /* Change color of the box when the user is hovering over it */
 void Button::hover() {
     setColor(hoverFill);
@@ -39,11 +45,13 @@ void Button::hover() {
 /* Change color of the box when the user is clicking on it */
 void Button::pressDown() {
     setColor(pressFill);
+    pressed = true;
 }
 
 /* Change the color back when the user is not clicking/hovering */
 void Button::release() {
     setColor(originalFill);
+    pressed = false;
 }
 
 void Button::choice() {
