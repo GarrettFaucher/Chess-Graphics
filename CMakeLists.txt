@@ -1,3 +1,6 @@
+cmake_minimum_required(VERSION 3.10)
+project(FinalProjectMajor_GF_JN)
+
 if (APPLE)
     FIND_PACKAGE(OpenGL REQUIRED)
     find_package(GLUT REQUIRED)
@@ -5,8 +8,6 @@ else ()
     FIND_PACKAGE(OpenGL)
 endif ()
 
-cmake_minimum_required(VERSION 3.10)
-project(FinalProjectMajor_GF_JN)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14 -Wno-deprecated -Werror=return-type")
 

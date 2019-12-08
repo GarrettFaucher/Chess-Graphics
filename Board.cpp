@@ -158,23 +158,27 @@ void Board::movePieceToOption(ChessPiece* piece, int choice) {
 std::vector<int> Board::cleanValidMoves(int x, int y, faction team) {
     std::vector<int> validMoves = getPiece(x, y, team)->getValidMoves();
     std::vector<int> cleanMoves;
-    std::vector<int> teamPositions;
+    std::vector<int> allPositions;
+    std::vector<int> whitePositions;
+    std::vector<int> blackPositions;
+
 
     // Get a vector of team locations for each team
     for(int i = 0; i < 64; i++) {
-        if (team == WHITE) {
-            if (whiteBoard[i] != nullptr)
-                teamPositions.push_back(whiteBoard[i]->getBoardIndex());
-        } else {
-            if (blackBoard[i] != nullptr)
-                teamPositions.push_back(blackBoard[i]->getBoardIndex());
+        if (whiteBoard[i] != nullptr) {
+            whitePositions.push_back(whiteBoard[i]->getBoardIndex());
+            allPositions.push_back(whiteBoard[i]->getBoardIndex());
+        }
+        if (blackBoard[i] != nullptr) {
+            blackPositions.push_back(blackBoard[i]->getBoardIndex());
+            allPositions.push_back(blackBoard[i]->getBoardIndex());
         }
     }
 
     for(int validMove : validMoves) {
         bool valid = true;
-        for (int j = 0; (teamPositions.size() > j) && valid; j++) {
-            if (validMove == teamPositions[j]) {
+        for (int j = 0; (allPositions.size() > j) && valid; j++) {
+            if (validMove == allPositions[j]) {
                 valid = false;
             }
         }
@@ -182,7 +186,7 @@ std::vector<int> Board::cleanValidMoves(int x, int y, faction team) {
             cleanMoves.push_back(validMove);
         }
     }
-    teamPositions.clear();
+    allPositions.clear();
     return cleanMoves;
 }
 
