@@ -123,7 +123,7 @@ public:
      * @param x
      * @param y
      */
-    void movePiece(int x, int y);
+    virtual void movePiece(int x, int y);
 
     void moveToValidMove(int index);
 

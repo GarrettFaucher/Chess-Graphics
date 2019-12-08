@@ -5,6 +5,8 @@
 #include <iostream>
 
 class Pawn : public ChessPiece {
+private:
+    bool firstMove;
 public:
     // Basic constructors from ChessPiece
     Pawn();
@@ -14,7 +16,7 @@ public:
      * Overidden method to see if move is valid.
      */
     bool validMove(int boardIndex) override;
-
+    void movePiece(int x, int y) override;
     void draw() override;
 };
 

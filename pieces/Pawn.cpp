@@ -4,14 +4,16 @@ Pawn::Pawn(){
     type = PAWN;
     team = BLACK;
     alive = true;
+    firstMove = true;
     x = 0;
     y = 0;
-    findValidMoves(); // TODO This needs to be called in main instead
+    findValidMoves();
 }
 Pawn::Pawn(faction team, bool alive, int x, int y){
     this->type = PAWN;
     this->team = team;
     this->alive = alive;
+    firstMove = true;
     this->x = x;
     this->y = y;
     findValidMoves();
@@ -20,18 +22,27 @@ Pawn::Pawn(faction team, bool alive, int x, int y){
 bool Pawn::validMove(int boardIndex) {
     int x = indexToX(boardIndex);
     int y = indexToY(boardIndex);
+
     if (WHITE == team) {
-        if ((x == this->x && y == this->y-1) ||
-            (x == this->x && y == this->y-2)) {
+        if ((x == this->x && y == this->y-1) || (((x == this->x-1) || (x == this->x+1)) && y == this->y-1)) {
+            return true;
+        } else if (firstMove && (x == this->x && y == this->y-2)) {
             return true;
         }
     } else {
-        if ((x == this->x && y == this->y+1) ||
-            (x == this->x && y == this->y+2)) {
+        if ((x == this->x && y == this->y+1) || (((x == this->x-1) || (x == this->x+1)) && y == this->y+1)) {
+            return true;
+        } else if (firstMove && (x == this->x && y == this->y+2)) {
             return true;
         }
     }
     return false;
+}
+
+void Pawn::movePiece(int x, int y) {
+    this->x = x;
+    this->y = y;
+    firstMove = false;
 }
 
 void Pawn::draw() {
