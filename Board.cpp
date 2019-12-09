@@ -156,36 +156,96 @@ void Board::movePieceToOption(ChessPiece* piece, int choice) {
 }
 
 std::vector<int> Board::cleanValidMoves(int x, int y, faction team) {
+    pieceType type = getPiece(x, y, team)->getType();
     std::vector<int> validMoves = getPiece(x, y, team)->getValidMoves();
     std::vector<int> cleanMoves;
     std::vector<int> allPositions;
-    std::vector<int> whitePositions;
-    std::vector<int> blackPositions;
-
+    std::vector<int> movingTeam;
+    std::vector<int> enemyTeam;
 
     // Get a vector of team locations for each team
     for(int i = 0; i < 64; i++) {
         if (whiteBoard[i] != nullptr) {
-            whitePositions.push_back(whiteBoard[i]->getBoardIndex());
+            if (team == WHITE) {
+                movingTeam.push_back(whiteBoard[i]->getBoardIndex());
+            } else {
+                enemyTeam.push_back(whiteBoard[i]->getBoardIndex());
+            }
             allPositions.push_back(whiteBoard[i]->getBoardIndex());
         }
         if (blackBoard[i] != nullptr) {
-            blackPositions.push_back(blackBoard[i]->getBoardIndex());
+            if (team == BLACK) {
+                movingTeam.push_back(blackBoard[i]->getBoardIndex());
+            } else {
+                enemyTeam.push_back(blackBoard[i]->getBoardIndex());
+            }
             allPositions.push_back(blackBoard[i]->getBoardIndex());
         }
     }
 
     for(int validMove : validMoves) {
         bool valid = true;
-        for (int j = 0; (allPositions.size() > j) && valid; j++) {
-            if (validMove == allPositions[j]) {
+
+        // Check for team collisions
+        for (int j = 0; (movingTeam.size() > j && valid); j++) {
+            if (validMove == movingTeam[j]) {
                 valid = false;
             }
         }
+
+        // Check for enemy collisions
+        switch (type) {
+            case PAWN:
+                if (validMove%8 != x) {
+                    valid = false;
+                    for (int j = 0; enemyTeam.size() > j; j++) {
+                        if (validMove == enemyTeam[j]) {
+                            validMove = true;
+                        }
+                    }
+                }
+                break;
+            case KING:
+                break;
+            case KNIGHT:
+                break;
+            case QUEEN:
+
+                break;
+            case ROOK:
+
+                break;
+            case BISHOP:
+
+                break;
+        }
+
+
+        // Check for blockages
+        switch (type) {
+            case PAWN:
+
+                break;
+            case KING:
+                break;
+            case KNIGHT:
+                break;
+            case QUEEN:
+
+                break;
+            case ROOK:
+
+                break;
+            case BISHOP:
+
+                break;
+        }
+
         if(valid) {
             cleanMoves.push_back(validMove);
         }
     }
+
     allPositions.clear();
     return cleanMoves;
 }
