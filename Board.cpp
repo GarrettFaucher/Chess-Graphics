@@ -155,6 +155,19 @@ void Board::movePieceToOption(ChessPiece* piece, int choice) {
     setPiece(piece);
 }
 
+std::vector<int> Board::intersection(std::vector<int> &v1,
+                                      std::vector<int> &v2){
+    std::vector<int> v3;
+
+    std::sort(v1.begin(), v1.end());
+    std::sort(v2.begin(), v2.end());
+
+    std::set_intersection(v1.begin(),v1.end(),
+                          v2.begin(),v2.end(),
+                          back_inserter(v3));
+    return v3;
+}
+
 std::vector<int> Board::cleanValidMoves(int x, int y, faction team) {
     pieceType type = getPiece(x, y, team)->getType();
     std::vector<int> validMoves = getPiece(x, y, team)->getValidMoves();
@@ -162,6 +175,7 @@ std::vector<int> Board::cleanValidMoves(int x, int y, faction team) {
     std::vector<int> allPositions;
     std::vector<int> movingTeam;
     std::vector<int> enemyTeam;
+    std::vector<int> validIntersectAll = intersection(validMoves, allPositions);
 
     // Get a vector of team locations for each team
     for(int i = 0; i < 64; i++) {
@@ -200,41 +214,66 @@ std::vector<int> Board::cleanValidMoves(int x, int y, faction team) {
                     valid = false;
                     for (int j = 0; enemyTeam.size() > j; j++) {
                         if (validMove == enemyTeam[j]) {
-                            validMove = true;
+                            valid = true;
                         }
                     }
                 }
-                break;
-            case KING:
-                break;
-            case KNIGHT:
-                break;
-            case QUEEN:
-
-                break;
-            case ROOK:
-
-                break;
-            case BISHOP:
-
                 break;
         }
 
 
         // Check for blockages
+        // Cases are broken up into movement types: up, down, left, right (ROOK)
+        // The cases each check if there is nothing in front of the valid move.
+        // If something at all blocks te valid move, it is invalid.
+        // This causes the piece to take both friendly and enemy units, but the logic is already being cleaned.
         switch (type) {
             case PAWN:
-
-                break;
-            case KING:
-                break;
-            case KNIGHT:
+                if (validMoves.size() == 4) {
+                    // TODO: Remove two away if one away is blocked
+                }
                 break;
             case QUEEN:
 
                 break;
             case ROOK:
+                // Vertical Case
+                if (validMove%8 == x) {
+                    // Up Case
+                    if (validMove/8 < y) {
+                        for (int i = validMove+8; i < y*8+x; i+=8) {
+                            if (std::count(allPositions.begin(), allPositions.end(), i)) {
+                                valid = false;
+                            }
+                        }
+                    }
+                        // Down Case
+                    else {
+                        for (int i = validMove-8; i > y*8+x; i-=8) {
+                            if (std::count(allPositions.begin(), allPositions.end(), i)) {
+                                valid = false;
+                            }
+                        }
+                    }
 
+                } else {
+                    // Left Case
+                    if (validMove%8 < x) {
+                        for (int i = validMove+1; i > y*8+x; i++) {
+                            if (std::count(allPositions.begin(), allPositions.end(), i)) {
+                                valid = false;
+                            }
+                        }
+                    }
+                        // Right Case
+                    else {
+                        for (int i = validMove-1; i > y*8+x; i--) {
+                            if (std::count(allPositions.begin(), allPositions.end(), i)) {
+                                valid = false;
+                            }
+                        }
+                    }
+                }
                 break;
             case BISHOP:
 

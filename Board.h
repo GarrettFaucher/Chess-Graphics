@@ -9,6 +9,7 @@
 #include "pieces/Knight.h"
 #include "pieces/Pawn.h"
 #include "Button.h"
+#include <algorithm>
 #include <vector>
 #include <string>
 #include <optional>
@@ -77,6 +78,8 @@ public:
     void popPiece(int x, int y, faction team);
 
     void movePieceToOption(ChessPiece* piece, int choice);
+
+    std::vector<int> intersection(std::vector<int> &v1, std::vector<int> &v2);
 
     /**
      * CleanValidMoves takes the coordinates and faction of a team and returns
