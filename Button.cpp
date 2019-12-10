@@ -59,7 +59,7 @@ void Button::release() {
 }
 
 void Button::choice() {
-    int numTriangles = 50; //# of triangles used to draw circle
+    int numTriangles = 100; //# of triangles used to draw circle
 
     GLfloat twoPi = 2.0f * M_PI;
 
@@ -68,8 +68,8 @@ void Button::choice() {
     glVertex2f(center.x, center.y); // center of circle
     for(int i = 0; i <= numTriangles;i++) {
         glVertex2f(
-                float(center.x) + (20 * cosf(float(i) *  twoPi / float(numTriangles))),
-                float(center.y) + (20 * sinf(float(i) * twoPi / float(numTriangles)))
+                float(center.x) + (36 * cosf(float(i) *  twoPi / float(numTriangles))),
+                float(center.y) + (36 * sinf(float(i) * twoPi / float(numTriangles)))
         );
     }
     glEnd();
