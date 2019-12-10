@@ -193,6 +193,7 @@ void mouse(int button, int state, int x, int y) {
                     board.getPiece(tempX, tempY, WHITE)->findValidMoves(); // Finds valid moves of piece at its new position
                     if(x/100 != tempX || y/100 != tempY) {
                         board.popPiece(tempX, tempY, WHITE);
+                        board.checkCollisions();
                         board.setWhiteTurn(false);
                     }
                 }
@@ -202,6 +203,7 @@ void mouse(int button, int state, int x, int y) {
                     board.getPiece(tempX, tempY, BLACK)->findValidMoves(); // Finds valid moves of piece at its new position
                     if(x/100 != tempX || y/100 != tempY) {
                         board.popPiece(tempX, tempY, BLACK);
+                        board.checkCollisions();
                         board.setWhiteTurn(true);
                     }
 
