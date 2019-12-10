@@ -79,8 +79,6 @@ public:
 
     void movePieceToOption(ChessPiece* piece, int choice);
 
-    std::vector<int> intersection(std::vector<int> &v1, std::vector<int> &v2);
-
     /**
      * CleanValidMoves takes the coordinates and faction of a team and returns
      * a vector of moves that a piece can move to by its ruleset and takes away the

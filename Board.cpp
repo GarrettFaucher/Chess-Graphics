@@ -155,19 +155,6 @@ void Board::movePieceToOption(ChessPiece* piece, int choice) {
     setPiece(piece);
 }
 
-std::vector<int> Board::intersection(std::vector<int> &v1,
-                                      std::vector<int> &v2){
-    std::vector<int> v3;
-
-    std::sort(v1.begin(), v1.end());
-    std::sort(v2.begin(), v2.end());
-
-    std::set_intersection(v1.begin(),v1.end(),
-                          v2.begin(),v2.end(),
-                          back_inserter(v3));
-    return v3;
-}
-
 std::vector<int> Board::cleanValidMoves(int x, int y, faction team) {
     pieceType type = getPiece(x, y, team)->getType();
     std::vector<int> validMoves = getPiece(x, y, team)->getValidMoves();
@@ -175,7 +162,6 @@ std::vector<int> Board::cleanValidMoves(int x, int y, faction team) {
     std::vector<int> allPositions;
     std::vector<int> movingTeam;
     std::vector<int> enemyTeam;
-    std::vector<int> validIntersectAll = intersection(validMoves, allPositions);
 
     // Get a vector of team locations for each team
     for(int i = 0; i < 64; i++) {
