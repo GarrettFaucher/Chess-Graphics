@@ -227,7 +227,7 @@ std::vector<int> Board::cleanValidMoves(int x, int y, faction team) {
                 if (validMove%8 == x) {
                     // Up Case
                     if (validMove/8 < y) {
-                        for (int i = validMove+8; i < y*8+x; i+=8) {
+                        for (int i = validMove+8; i < y*8+x && valid; i+=8) {
                             if (std::count(allPositions.begin(), allPositions.end(), i)) {
                                 valid = false;
                             }
@@ -235,7 +235,7 @@ std::vector<int> Board::cleanValidMoves(int x, int y, faction team) {
                     }
                         // Down Case
                     else {
-                        for (int i = validMove-8; i > y*8+x; i-=8) {
+                        for (int i = validMove-8; i > y*8+x && valid; i-=8) {
                             if (std::count(allPositions.begin(), allPositions.end(), i)) {
                                 valid = false;
                             }
@@ -245,7 +245,7 @@ std::vector<int> Board::cleanValidMoves(int x, int y, faction team) {
                 } else {
                     // Left Case
                     if (validMove%8 < x) {
-                        for (int i = validMove+1; i > y*8+x; i++) {
+                        for (int i = validMove+1; i > y*8+x && valid; i++) {
                             if (std::count(allPositions.begin(), allPositions.end(), i)) {
                                 valid = false;
                             }
@@ -253,7 +253,7 @@ std::vector<int> Board::cleanValidMoves(int x, int y, faction team) {
                     }
                         // Right Case
                     else {
-                        for (int i = validMove-1; i > y*8+x; i--) {
+                        for (int i = validMove-1; i > y*8+x && valid; i--) {
                             if (std::count(allPositions.begin(), allPositions.end(), i)) {
                                 valid = false;
                             }
@@ -262,6 +262,35 @@ std::vector<int> Board::cleanValidMoves(int x, int y, faction team) {
                 }
                 break;
             case BISHOP:
+                // Up Left
+                if (validMove%8 < x && validMove/8 < y) {
+                    for (int i = validMove+9; i < y*8+x && valid; i+=9) {
+                        if (std::count(allPositions.begin(), allPositions.end(), i)) {
+                            valid = false;
+                        }
+                    }
+                // Up Right
+                } else if (validMove%8 > x && validMove/8 < y) {
+                    for (int i = validMove+7; i < y*8+x && valid; i+=7) {
+                        if (std::count(allPositions.begin(), allPositions.end(), i)) {
+                            valid = false;
+                        }
+                    }
+                // Down Left
+                } else if (validMove%8 < x && validMove/8 > y) {
+                    for (int i = validMove-7; i > y*8+x && valid; i-=7) {
+                        if (std::count(allPositions.begin(), allPositions.end(), i)) {
+                            valid = false;
+                        }
+                    }
+                // Down Right
+                } else if (validMove%8 > x && validMove/8 > y) {
+                    for (int i = validMove-9; i > y*8+x && valid; i-=9) {
+                        if (std::count(allPositions.begin(), allPositions.end(), i)) {
+                            valid = false;
+                        }
+                    }
+                }
 
                 break;
         }
