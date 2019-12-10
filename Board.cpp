@@ -203,6 +203,12 @@ std::vector<int> Board::cleanValidMoves(int x, int y, faction team) {
                             valid = true;
                         }
                     }
+                } else if (validMove%8 == x) {
+                    for (int j = 0; enemyTeam.size() > j; j++) {
+                        if (validMove == enemyTeam[j]) {
+                            valid = false;
+                        }
+                    }
                 }
                 break;
         }
@@ -215,8 +221,20 @@ std::vector<int> Board::cleanValidMoves(int x, int y, faction team) {
         // This causes the piece to take both friendly and enemy units, but the logic is already being cleaned.
         switch (type) {
             case PAWN:
-                if (validMoves.size() == 4) {
-                    // TODO: Remove two away if one away is blocked
+                if (validMove%8 == x) {
+                    if (team == WHITE) {
+                        for (int i = validMove+8; i < y*8+x && valid; i+=8) {
+                            if (std::count(allPositions.begin(), allPositions.end(), i)) {
+                                valid = false;
+                            }
+                        }
+                    } else if (team == BLACK) {
+                        for (int i = validMove-8; i > y*8+x && valid; i-=8) {
+                            if (std::count(allPositions.begin(), allPositions.end(), i)) {
+                                valid = false;
+                            }
+                        }
+                    }
                 }
                 break;
             case QUEEN:
