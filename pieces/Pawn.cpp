@@ -40,9 +40,11 @@ bool Pawn::validMove(int boardIndex) {
 }
 
 void Pawn::movePiece(int x, int y) {
+    if (this->y != y) {
+        firstMove = false;
+    }
     this->x = x;
     this->y = y;
-    firstMove = false;
 }
 
 void Pawn::draw() {
