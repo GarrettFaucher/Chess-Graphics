@@ -65,16 +65,17 @@ void display() {
     if(phase == ending){
         string label = "Virtual Chess Game";
         glColor3f(1, 1, 1);
-        glRasterPos2i(400,300);
+        glRasterPos2i(434,300);
         for(const char &letter : label) {
             glutBitmapCharacter(GLUT_BITMAP_8_BY_13, letter);
         }
         label = "Would You Like to Play Again?";
         glColor3f(1, 1, 1);
-        glRasterPos2i(350,400);
+        glRasterPos2i(390,400);
         for(const char &letter : label) {
             glutBitmapCharacter(GLUT_BITMAP_8_BY_13, letter);
         }
+        startBtn.draw();
         glFlush();
     }
 
