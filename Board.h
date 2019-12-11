@@ -103,6 +103,8 @@ public:
 
      std::vector<Button>* getSquares();
 
+     bool kingInCheck(faction team);
+
 };
 
 

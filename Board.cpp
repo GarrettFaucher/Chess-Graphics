@@ -415,7 +415,44 @@ std::vector<Button>* Board::getSquares(){
     return &squares;
 }
 
-
-
-
-
+bool Board::kingInCheck(faction team) {
+    int kingIndex;
+    if (team == WHITE) {
+        for (int i = 0; whiteBoard.size() > i; i++) {
+            if (whiteBoard[i] != nullptr) {
+                if (whiteBoard[i]->getType() == KING) {
+                    kingIndex = whiteBoard[i]->getBoardIndex();
+                }
+            }
+        }
+        for (int i = 0; blackBoard.size() > i; i++) {
+            if (blackBoard[i] != nullptr) {
+                std::vector<int> cleanValid = cleanValidMoves(blackBoard[i]->getX(), blackBoard[i]->getY(), BLACK);
+                for (int move : cleanValid) {
+                    if (move == kingIndex) {
+                        return false;
+                    }
+                }
+            }
+        }
+    } else {
+        for (int i = 0; blackBoard.size() > i; i++) {
+            if (blackBoard[i] != nullptr) {
+                if (blackBoard[i]->getType() == KING) {
+                    kingIndex = blackBoard[i]->getBoardIndex();
+                }
+            }
+        }
+        for (int i = 0; whiteBoard.size() > i; i++) {
+            if (whiteBoard[i] != nullptr) {
+                std::vector<int> cleanValid = cleanValidMoves(whiteBoard[i]->getX(), whiteBoard[i]->getY(), WHITE);
+                for (int move : cleanValid) {
+                    if (move == kingIndex) {
+                        return false;
+                    }
+                }
+            }
+        }
+    }
+    return false;
+}
