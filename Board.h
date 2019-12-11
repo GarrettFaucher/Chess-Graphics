@@ -105,6 +105,11 @@ public:
 
      bool kingInCheck(faction team);
 
+     /*
+      * Determines if the game is over
+      */
+     bool gameOver();
+
 };
 
 

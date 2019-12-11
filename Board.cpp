@@ -456,3 +456,22 @@ bool Board::kingInCheck(faction team) {
     }
     return false;
 }
+
+bool Board::gameOver() {
+    bool white = true, black = true;
+    for(ChessPiece* piece : whiteBoard) {
+        if(piece != nullptr) {
+            if(piece->getType() == KING) {
+                white = false;
+            }
+        }
+    }
+    for(ChessPiece* piece : blackBoard) {
+        if(piece != nullptr) {
+            if(piece->getType() == KING) {
+                black = false;
+            }
+        }
+    }
+    return white || black;
+}

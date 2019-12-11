@@ -210,6 +210,7 @@ void mouse(int button, int state, int x, int y) {
                         board.checkCollisions();
                         replaced = true;
                         cout << boolalpha << "Black king in check: " << board.kingInCheck(BLACK) << endl;
+                        cout << boolalpha << "Game over: " << board.gameOver() << endl;
                         board.setWhiteTurn(false);
                     }
                 } else if (b.isPressed() && (board.getPiece(tempX, tempY, BLACK) != nullptr) && !board.getWhiteTurn() && !replaced) {
@@ -222,6 +223,7 @@ void mouse(int button, int state, int x, int y) {
                         board.checkCollisions();
                         replaced = true;
                         cout << boolalpha << "White king in check: " << board.kingInCheck(WHITE) << endl;
+                        cout << boolalpha << "Game over: " << board.gameOver() << endl;
                         board.setWhiteTurn(true);
                     }
                 }
