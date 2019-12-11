@@ -127,7 +127,15 @@ void cursor(int x, int y) {
         resetBtn.release();
     }
 
+    if(endGame.isOverlapping(x,y)){
+        endGame.hover();
+    }
+    else{
+        endGame.release();
+    }
+
     glutPostRedisplay();
+
 }
 
 // button will be GLUT_LEFT_BUTTON or GLUT_RIGHT_BUTTON
