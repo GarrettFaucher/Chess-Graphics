@@ -149,6 +149,9 @@ void mouse(int button, int state, int x, int y) {
     }
     // If the left button is up and the cursor is overlapping with the Button, start the game.
     if(button == GLUT_LEFT_BUTTON && state == GLUT_UP && startBtn.isOverlapping(x,y)){
+        board.resetBoard();
+        board.fileToBoard("../boards/default.csv");
+        board.setWhiteTurn(true);
         phase = game;
     }
 
@@ -190,45 +193,45 @@ void mouse(int button, int state, int x, int y) {
         }
     }
 
-    if(button == GLUT_LEFT_BUTTON && state == GLUT_UP && phase == game){
+    if(button == GLUT_LEFT_BUTTON && state == GLUT_UP && phase == game) {
         int tempX, tempY;
-        if(board.getSquares()->at((y/100)*8 + (x/100)).isPressed()) {
+        bool replaced = false;
+        if (board.getSquares()->at((y / 100) * 8 + (x / 100)).isPressed()) {
             for (Button &b : *board.getSquares()) {
                 tempX = b.getLeftX() / 100;
                 tempY = b.getTopY() / 100;
-                if (b.isPressed() && (board.getPiece(tempX, tempY, WHITE) != nullptr) && board.getWhiteTurn()) {
-                    board.getPiece(tempX, tempY, WHITE)->movePiece(x /100, y /100);
+                if (b.isPressed() && (board.getPiece(tempX, tempY, WHITE) != nullptr) && board.getWhiteTurn() && !replaced) {
+                    board.getPiece(tempX, tempY, WHITE)->movePiece(x / 100, y / 100);
                     board.setPiece(board.getPiece(tempX, tempY, WHITE));
-                    board.getPiece(tempX, tempY, WHITE)->findValidMoves(); // Finds valid moves of piece at its new position
-                    if(x/100 != tempX || y/100 != tempY) {
+                    board.getPiece(tempX, tempY,
+                                       WHITE)->findValidMoves(); // Finds valid moves of piece at its new position
+                    if (x / 100 != tempX || y / 100 != tempY) {
                         board.popPiece(tempX, tempY, WHITE);
                         board.checkCollisions();
+                        replaced = true;
                         board.setWhiteTurn(false);
                     }
-                }
-                else if (b.isPressed() && (board.getPiece(tempX, tempY, BLACK) != nullptr) && !board.getWhiteTurn()) {
+                } else if (b.isPressed() && (board.getPiece(tempX, tempY, BLACK) != nullptr) && !board.getWhiteTurn() && !replaced) {
                     board.getPiece(tempX, tempY, BLACK)->movePiece(x / 100, y / 100);
                     board.setPiece(board.getPiece(tempX, tempY, BLACK));
-                    board.getPiece(tempX, tempY, BLACK)->findValidMoves(); // Finds valid moves of piece at its new position
-                    if(x/100 != tempX || y/100 != tempY) {
+                    board.getPiece(tempX, tempY,
+                                       BLACK)->findValidMoves(); // Finds valid moves of piece at its new position
+                    if (x / 100 != tempX || y / 100 != tempY) {
                         board.popPiece(tempX, tempY, BLACK);
                         board.checkCollisions();
+                        replaced = true;
                         board.setWhiteTurn(true);
                     }
-
                 }
                 b.release();
             }
-        }
-        else {
+        } else {
             for (Button &b : *board.getSquares()) {
                 b.release(); // If user drags to an invalid spot all of the squares and pieces are released.
             }
         }
     }
-
     glutPostRedisplay();
-
 }
 
 void timer(int dummy) {
