@@ -48,13 +48,16 @@ void Pawn::movePiece(int x, int y) {
 }
 
 void Pawn::draw() {
-    Quad r = Quad({0,.6,.8},{(getX()*100)+50,(getY()*100)+50}, 50, 50);
-    r.draw();
+    Quad r;
     if(team == BLACK){
-        glColor3f(0,0,0);
+        r = Quad({0,0,0},{(getX()*100)+50, (getY()*100)+50}, 50, 50);
+        r.draw();
+        glColor3f(1,1,1);
     }
     else{
-        glColor3f(1,1,1);
+        r = Quad({1,1,1},{(getX()*100)+50, (getY()*100)+50}, 50, 50);
+        r.draw();
+        glColor3f(0,0,0);
     }
     std::string label = "Pawn";
     glRasterPos2i(getX()*100 + 35 ,getY()*100 +50);

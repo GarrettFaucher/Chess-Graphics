@@ -398,6 +398,27 @@ void Board::draw() {
         }
     }
 
+    if(kingInCheck(WHITE)) {
+        for (ChessPiece *piece : whiteBoard) {
+            if (piece != nullptr) {
+                if (piece->getType() == KING) {
+                    Quad check = Quad({1, 0, 0}, {(piece->getX()*100)+50, (piece->getY())*100 +50}, 75, 75);
+                    check.draw();
+                }
+            }
+        }
+    }
+    if (kingInCheck(BLACK)){
+        for (ChessPiece *piece : blackBoard) {
+            if (piece != nullptr) {
+                if (piece->getType() == KING) {
+                    Quad check = Quad({1, 0, 0}, {(piece->getX()*100)+50, (piece->getY())*100 +50}, 75, 75);
+                    check.draw();
+                }
+            }
+        }
+    }
+
     for(ChessPiece *p : whiteBoard) {
         if(p != nullptr){
            p->draw();
@@ -409,6 +430,7 @@ void Board::draw() {
             p->draw();
         }
     }
+
 }
 
 std::vector<Button>* Board::getSquares(){
