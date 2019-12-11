@@ -68,8 +68,8 @@ void Button::choice() {
     glVertex2f(center.x, center.y); // center of circle
     for(int i = 0; i <= numTriangles;i++) {
         glVertex2f(
-                float(center.x) + (36 * cosf(float(i) *  twoPi / float(numTriangles))),
-                float(center.y) + (36 * sinf(float(i) * twoPi / float(numTriangles)))
+                float(center.x) + (34 * cosf(float(i) *  twoPi / float(numTriangles))),
+                float(center.y) + (34 * sinf(float(i) * twoPi / float(numTriangles)))
         );
     }
     glEnd();

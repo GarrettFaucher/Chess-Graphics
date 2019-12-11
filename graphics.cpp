@@ -211,6 +211,11 @@ void mouse(int button, int state, int x, int y) {
                 b.release();
             }
         }
+        else {
+            for (Button &b : *board.getSquares()) {
+                b.release(); // If user drags to an invalid spot all of the squares and pieces are released.
+            }
+        }
     }
 
     glutPostRedisplay();
