@@ -16,6 +16,7 @@ private:
     std::string label;
     color originalFill, hoverFill, pressFill;
     bool pressed;
+    bool chosen;
 
 public:
     Button(color fill, point center, unsigned int width, unsigned int height, std::string label);
