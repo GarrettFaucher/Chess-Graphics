@@ -430,7 +430,7 @@ bool Board::kingInCheck(faction team) {
                 std::vector<int> cleanValid = cleanValidMoves(blackBoard[i]->getX(), blackBoard[i]->getY(), BLACK);
                 for (int move : cleanValid) {
                     if (move == kingIndex) {
-                        return false;
+                        return true;
                     }
                 }
             }
@@ -448,7 +448,7 @@ bool Board::kingInCheck(faction team) {
                 std::vector<int> cleanValid = cleanValidMoves(whiteBoard[i]->getX(), whiteBoard[i]->getY(), WHITE);
                 for (int move : cleanValid) {
                     if (move == kingIndex) {
-                        return false;
+                        return true;
                     }
                 }
             }
