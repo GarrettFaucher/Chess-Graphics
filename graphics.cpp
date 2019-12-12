@@ -283,7 +283,7 @@ void mouse(int button, int state, int x, int y) {
         phase = ending;
     }
 
-    // Functionality for moving pieces
+    // Functionality for showing any possible moves
     if(button == GLUT_LEFT_BUTTON && state == GLUT_DOWN && phase == game && !board.gameOver()) {
         if (board.getPiece((x / 100), (y / 100), WHITE) != nullptr && board.getWhiteTurn()) { // button clicked on
             board.getSquares()->at((y / 100) * 8 + (x / 100)).pressDown();
@@ -298,6 +298,7 @@ void mouse(int button, int state, int x, int y) {
         }
     }
 
+    // Functionality for moving pieces
     if(button == GLUT_LEFT_BUTTON && state == GLUT_UP && phase == game && !board.gameOver()) {
         int tempX, tempY;
         bool replaced = false;

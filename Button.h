@@ -40,6 +40,7 @@ public:
     /* Change the color back when the user is not clicking/hovering */
     void release();
 
+    /* Draws a shadowed circle on the button*/
     void choice();
 };
 

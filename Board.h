@@ -102,15 +102,29 @@ public:
      */
      void draw();
 
+     /**
+      * Returns the chess board buttons in a vector.
+      * @return pointer to a vector of Buttons that make up the tiles of the chess board.
+      */
      std::vector<Button>* getSquares();
 
+     /**
+      * Determines whether the king of the team is in check.
+      * @param team
+      * @return true if king is in check, false otherwise
+      */
      bool kingInCheck(faction team);
 
-     /*
-      * Determines if the game is over
+     /**
+      * Determines if the game has ended
+      * @return returns true iof a king is captured or the game has ended, false otherwise.
       */
      bool gameOver();
 
+     /**
+      * Sets the game to ended or not ended.
+      * @param over bool whether game has ended.
+      */
      void setGameOver(bool over);
 
 };
