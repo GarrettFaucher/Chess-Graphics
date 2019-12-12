@@ -1,8 +1,8 @@
-BR,,,,,,,
-BP,BB,,,,,,
-,BP,,,BR,,WB,BKG
-,,,BP,WKN,BP,,
-,,BP,WP,,WP,,
-,,BQ,,WP,,WR,
-WP,,,,WQ,WKN,WP,
-,,,,,,,
+BR,,,BQ,,BR,,BKG
+BP,BB,BP,,WKN,,BP,BP
+,BP,,BP,,,,
+,,,,,BP,,
+,,WB,,,,,
+WP,,,,WP,,BKN,
+,WP,,,,WP,,WP
+,,WR,WQ,WKG,,,WR
