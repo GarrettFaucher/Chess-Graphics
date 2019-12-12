@@ -51,7 +51,7 @@ void display() {
         glColor3f(1, 1, 1);
         glRasterPos2i(430,300);
         for(const char &letter : label) {
-            glutBitmapCharacter(GLUT_BITMAP_8_BY_13, letter);
+            glutBitmapCharacter(GLUT_BITMAP_9_BY_15, letter);
         }
         startBtn.draw();
         glFlush();
@@ -60,6 +60,36 @@ void display() {
         board.draw();
         resetBtn.draw();
         endGame.draw();
+        if(board.gameOver()){
+            string team;
+            if(board.getWhiteTurn()) {
+                team = "White Team";
+            }
+            else {
+                team = "Black Team";
+            }
+            string label = "Game Over! ";
+            glColor3f(1, 1, 1);
+            glRasterPos2i(860,100);
+            for(const char &letter : label) {
+                glutBitmapCharacter(GLUT_BITMAP_8_BY_13, letter);
+            }
+            label = team + " Won!";
+            glRasterPos2i(840,120);
+            for(const char &letter : label) {
+                glutBitmapCharacter(GLUT_BITMAP_8_BY_13, letter);
+            }
+        }
+        else {
+            string label = "Press C to Concede";
+            glColor3f(1, 1, 1);
+            glRasterPos2i(825,100);
+            for(const char &letter : label) {
+                glutBitmapCharacter(GLUT_BITMAP_8_BY_13, letter);
+            }
+
+        }
+
         glFlush();
     }
     if(phase == ending){
@@ -67,13 +97,13 @@ void display() {
         glColor3f(1, 1, 1);
         glRasterPos2i(434,300);
         for(const char &letter : label) {
-            glutBitmapCharacter(GLUT_BITMAP_8_BY_13, letter);
+            glutBitmapCharacter(GLUT_BITMAP_9_BY_15, letter);
         }
         label = "Would You Like to Play Again?";
         glColor3f(1, 1, 1);
         glRasterPos2i(390,400);
         for(const char &letter : label) {
-            glutBitmapCharacter(GLUT_BITMAP_8_BY_13, letter);
+            glutBitmapCharacter(GLUT_BITMAP_9_BY_15, letter);
         }
         startBtn.draw();
         glFlush();
@@ -88,6 +118,11 @@ void kbd(unsigned char key, int x, int y) {
     if (key == 27) {
         glutDestroyWindow(wd);
         exit(0);
+    }
+
+    if (key == 'c') {
+        board.setWhiteTurn(!board.getWhiteTurn());
+        board.setGameOver(true);
     }
 
     glutPostRedisplay();
@@ -155,31 +190,34 @@ void mouse(int button, int state, int x, int y) {
         phase = game;
     }
 
+    // Code for reset button
     if(button == GLUT_LEFT_BUTTON && state == GLUT_DOWN && resetBtn.isOverlapping(x,y)){
         resetBtn.pressDown();
     }
     else{
         resetBtn.release();
     }
-    // If the left button is up and the cursor is overlapping with the Button, start the game.
+
     if(button == GLUT_LEFT_BUTTON && state == GLUT_UP && resetBtn.isOverlapping(x,y)){
         board.resetBoard();
         board.fileToBoard("../boards/default.csv");
         board.setWhiteTurn(true);
     }
 
+    // Code for end game button
     if(button == GLUT_LEFT_BUTTON && state == GLUT_DOWN && endGame.isOverlapping(x,y)){
         endGame.pressDown();
     }
     else{
         endGame.release();
     }
-    // If the left button is up and the cursor is overlapping with the Button, start the game.
+
     if(button == GLUT_LEFT_BUTTON && state == GLUT_UP && endGame.isOverlapping(x,y)){
         phase = ending;
     }
 
-    if(button == GLUT_LEFT_BUTTON && state == GLUT_DOWN && phase == game) {
+    // Functionality for moving pieces
+    if(button == GLUT_LEFT_BUTTON && state == GLUT_DOWN && phase == game && !board.gameOver()) {
         if (board.getPiece((x / 100), (y / 100), WHITE) != nullptr && board.getWhiteTurn()) { // button clicked on
             board.getSquares()->at((y / 100) * 8 + (x / 100)).pressDown();
             for (int i : board.cleanValidMoves(x / 100, y / 100, WHITE)) {
@@ -193,7 +231,7 @@ void mouse(int button, int state, int x, int y) {
         }
     }
 
-    if(button == GLUT_LEFT_BUTTON && state == GLUT_UP && phase == game) {
+    if(button == GLUT_LEFT_BUTTON && state == GLUT_UP && phase == game && !board.gameOver()) {
         int tempX, tempY;
         bool replaced = false;
         if (board.getSquares()->at((y / 100) * 8 + (x / 100)).isPressed()) {

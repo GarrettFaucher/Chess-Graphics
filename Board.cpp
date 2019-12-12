@@ -43,6 +43,7 @@ void Board::resetBoard() {
         whiteBoard[i] = nullptr;
         blackBoard[i] = nullptr;
     }
+    ended = false;
 }
 
 void Board::setPiece(ChessPiece* piece) {
@@ -495,5 +496,9 @@ bool Board::gameOver() {
             }
         }
     }
-    return white || black;
+    return white || black || ended;
+}
+
+void Board::setGameOver(bool over) {
+    ended = over;
 }

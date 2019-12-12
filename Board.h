@@ -24,6 +24,7 @@ private:
     std::vector<ChessPiece*> blackBoard;
     std:: vector<Button> squares;
     bool whiteTurn = true;
+    bool ended = false;
 public:
     Board();
 
@@ -109,6 +110,8 @@ public:
       * Determines if the game is over
       */
      bool gameOver();
+
+     void setGameOver(bool over);
 
 };
 
