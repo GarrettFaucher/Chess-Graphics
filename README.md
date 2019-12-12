@@ -7,6 +7,8 @@
 # Installations
 This program requires the installation of:
  * C++ compiler
+ 
+ Note: This program was designed to run on MacOS and Linux devices. 
 
 # Program Summary
 This program runs a functional game of chess using graphics. At the beginning of the program a general start
