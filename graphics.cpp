@@ -15,6 +15,9 @@ Board board;
 screen phase;
 Button startBtn({0.8,0.8,1.0},{500,500},100,50,"START");
 Button resetBtn({.3569,.2471,.3373},{900,200},100,50,"Reset Game");
+Button challenge1({.8666,.6274,.8666},{900,300},100,50," Challenge 1");
+Button challenge2 ({1,.8941,1},{900,400},100,50,"Challenge 2");
+Button challenge3 ({.9019,.9019,.9804},{900,500},100,50,"Challenge 3");
 Button endGame({.8863,.8236,.8588},{900,600},100,50, "End Game");
 
 void init() {
@@ -59,14 +62,17 @@ void display() {
     if(phase == game){
         board.draw();
         resetBtn.draw();
+        challenge1.draw();
+        challenge2.draw();
+        challenge3.draw();
         endGame.draw();
         if(board.gameOver()){
             string team;
             if(board.getWhiteTurn()) {
-                team = "White Team";
+                team = "Black Team";
             }
             else {
-                team = "Black Team";
+                team = "White Team";
             }
             string label = "Game Over! ";
             glColor3f(1, 1, 1);
@@ -121,7 +127,6 @@ void kbd(unsigned char key, int x, int y) {
     }
 
     if (key == 'c') {
-        board.setWhiteTurn(!board.getWhiteTurn());
         board.setGameOver(true);
     }
 
@@ -160,6 +165,26 @@ void cursor(int x, int y) {
     }
     else{
         resetBtn.release();
+    }
+    if(challenge1.isOverlapping(x,y)){
+        challenge1.hover();
+    }
+    else{
+        challenge1.release();
+    }
+
+    if(challenge2.isOverlapping(x,y)){
+        challenge2.hover();
+    }
+    else{
+        challenge2.release();
+    }
+
+    if(challenge3.isOverlapping(x,y)){
+        challenge3.hover();
+    }
+    else{
+        challenge3.release();
     }
 
     if(endGame.isOverlapping(x,y)){
@@ -201,6 +226,48 @@ void mouse(int button, int state, int x, int y) {
     if(button == GLUT_LEFT_BUTTON && state == GLUT_UP && resetBtn.isOverlapping(x,y)){
         board.resetBoard();
         board.fileToBoard("../boards/default.csv");
+        board.setWhiteTurn(true);
+    }
+
+    // Code for Challenge 1 Board
+    if(button == GLUT_LEFT_BUTTON && state == GLUT_DOWN && challenge1.isOverlapping(x,y)){
+        challenge1.pressDown();
+    }
+    else{
+        challenge1.release();
+    }
+
+    if(button == GLUT_LEFT_BUTTON && state == GLUT_UP && challenge1.isOverlapping(x,y)){
+        board.resetBoard();
+        board.fileToBoard("../boards/Challenge1.csv");
+        board.setWhiteTurn(true);
+    }
+
+    // Code for Challenge 2 Board
+    if(button == GLUT_LEFT_BUTTON && state == GLUT_DOWN && challenge2.isOverlapping(x,y)){
+        challenge2.pressDown();
+    }
+    else{
+        challenge2.release();
+    }
+
+    if(button == GLUT_LEFT_BUTTON && state == GLUT_UP && challenge2.isOverlapping(x,y)){
+        board.resetBoard();
+        board.fileToBoard("../boards/Challenge2.csv");
+        board.setWhiteTurn(true);
+    }
+
+    // Code for Challenge 3 Board
+    if(button == GLUT_LEFT_BUTTON && state == GLUT_DOWN && challenge3.isOverlapping(x,y)){
+        challenge3.pressDown();
+    }
+    else{
+        challenge3.release();
+    }
+
+    if(button == GLUT_LEFT_BUTTON && state == GLUT_UP && challenge3.isOverlapping(x,y)){
+        board.resetBoard();
+        board.fileToBoard("../boards/Challenge3.csv");
         board.setWhiteTurn(true);
     }
 
