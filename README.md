@@ -21,5 +21,5 @@ The chess piece will move to the selected tile and it will be the other player's
 Along the right side of the chessboard is the sidebar with five buttons. On the top is a reset button which sets the game back to the standard chess setup. There are also three challenge boards, each featuring a chess game that has progressed to a point of difficulty. At the bottom of the sidebar is an end button which ends the game and the program moves on to an ending screen.
 
 # Group Members
- * Jillian Neff
+ * [Jillian Neff](https://github.com/JillianNeff)
  * Garrett Faucher
